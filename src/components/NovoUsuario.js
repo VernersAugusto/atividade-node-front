@@ -14,7 +14,6 @@ function NovoUsuario() {
 
     function submitForm(event) {
         event.preventDefault();
-        console.log(usuario);
         api.post("usuarios", usuario)
             .then(result => {
                 console.log(result);
@@ -32,7 +31,7 @@ function NovoUsuario() {
 
     return (
         <>
-            <form className="form" onSubmit={submitForm}>
+            <form className="form" onSubmit={submitForm} style={{ width: "50%" }}>
                 <div className="form-group">
                     <label htmlFor="nome">Nome</label>
                     <input name="nome"

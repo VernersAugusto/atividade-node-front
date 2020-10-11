@@ -1,10 +1,11 @@
 import React from "react";
 
-function Home() {
+function NovoTreinador() {
     return (
         <>
+
         </>
     )
 }
 
-export default Home;
+export default NovoTreinador;
