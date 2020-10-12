@@ -16,8 +16,7 @@ function EditarPokemon({history, match}) {
         api.get(`Pokemons/${match.params.id}`)
             .then(result => {                
                 setPokemon(result.data);
-            })
-            .catch(error => console.log(error));
+            });            
             return () => {};
     }, []);
 
@@ -25,8 +24,9 @@ function EditarPokemon({history, match}) {
         event.preventDefault();        
         api.put(`pokemons/${match.params.id}`, pokemon)
             .then(result => {
-                toast.success(result.data, { position: "top-right" });
-                history.push("/pokemons");
+                toast.success(result.data, { position: "top-right", 
+                                             autoClose: 2000, 
+                                             onClose: () => history.push("/pokemons")})                
             })
             .catch(error => toast.error(error.response.data, { position: "top-right" }));
     }
