@@ -3,6 +3,7 @@ import api from "../api/api";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {getToken} from "../api/auth";
 
 function EditarPokemon({history, match}) {
     const [pokemon, setPokemon] = useState({
@@ -13,7 +14,7 @@ function EditarPokemon({history, match}) {
     });   
 
     useEffect(() => {
-        api.get(`Pokemons/${match.params.id}`)
+        api.get(`Pokemons/${match.params.id}`, {headers: {"token": getToken()}})
             .then(result => {                
                 setPokemon(result.data);
             });            
@@ -22,7 +23,7 @@ function EditarPokemon({history, match}) {
 
     function submitForm(event) {
         event.preventDefault();        
-        api.put(`pokemons/${match.params.id}`, pokemon)
+        api.put(`pokemons/${match.params.id}`, pokemon, {headers: {"token": getToken()}} )
             .then(result => {
                 toast.success(result.data, { position: "top-right", 
                                              autoClose: 2000, 

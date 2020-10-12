@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../api/api";
 import {Link, useHistory} from "react-router-dom";
 import { toast } from "react-toastify";
+import {getToken} from "../api/auth";
 
 function Treinadores() {
     const [treinadoresLista, setTreinadoresLista] = useState(undefined);
@@ -17,7 +18,7 @@ function Treinadores() {
     }, []);
 
     function EditarPokemon(id){
-        history.push(`/EditarTreinador/${id}`);
+        history.push(`/EditarTreinador/${id}`, {headers: {"token": getToken()}});
     }
 
     function ExcluirPokemon(id){

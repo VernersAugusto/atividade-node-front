@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from "../api/api";
+import {getToken} from "../api/auth";
 
 function NovoTreinador() {
     const [treinador, setTreinador] = useState({
@@ -20,7 +21,7 @@ function NovoTreinador() {
 
     function submitForm(event){
         event.preventDefault();
-        api.post("treinadores", treinador)
+        api.post("treinadores", treinador, {headers: {"token": getToken()}})
             .then(result => {
                 toast.success(result.data, { position: "top-right" });
                 limparForm();

@@ -3,13 +3,14 @@ import { Link, useHistory } from "react-router-dom";
 import api from "../api/api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {getToken} from "../api/auth";
 
 function Pokemons() {
     const [pokemonsLista, setPokemonLista] = useState(undefined);
     const history = useHistory();
 
     function getPokemon(){
-        api.get("pokemons").then(result => setPokemonLista(result.data));
+        api.get("pokemons", {headers: {"token": getToken()}} ).then(result => setPokemonLista(result.data));
     }
 
     useEffect(() => {

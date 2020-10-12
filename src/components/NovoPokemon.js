@@ -3,6 +3,7 @@ import api from "../api/api";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {getToken} from "../api/auth";
 
 function NovoPokemon() {
     const [pokemon, setPokemon] = React.useState({
@@ -23,7 +24,7 @@ function NovoPokemon() {
 
     function submitForm(event) {
         event.preventDefault();
-        api.post("pokemons", pokemon)
+        api.post("pokemons", pokemon, {headers: {"token": getToken()}} )
             .then(result => {
                 toast.success(result.data, { position: "top-right" });
                 limparForm();
