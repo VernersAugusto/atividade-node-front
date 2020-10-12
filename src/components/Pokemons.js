@@ -10,7 +10,7 @@ function Pokemons() {
     const history = useHistory();
 
     function getPokemon(){
-        api.get("pokemons", {headers: {"token": getToken()}} ).then(result => setPokemonLista(result.data));
+        api.get("pokemons", {headers: {"token": getToken()}}).then(result => setPokemonLista(result.data));
     }
 
     useEffect(() => {
@@ -20,7 +20,7 @@ function Pokemons() {
 
 
     function ExcluirPokemon(id){
-        api.delete(`pokemons/${id}`)
+        api.delete(`pokemons/${id}`, {headers: {"token": getToken()}})
             .then(result => {
                 toast.success(result.data, { position: "top-right" });
                 getPokemon();

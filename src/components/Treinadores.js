@@ -9,7 +9,7 @@ function Treinadores() {
     const history = useHistory();
 
     function getTreinador(){
-        api.get("treinadores").then(result => setTreinadoresLista(result.data));
+        api.get("treinadores", {headers: {"token": getToken()}}).then(result => setTreinadoresLista(result.data));
     }
 
     useEffect(() => {
@@ -18,11 +18,11 @@ function Treinadores() {
     }, []);
 
     function EditarPokemon(id){
-        history.push(`/EditarTreinador/${id}`, {headers: {"token": getToken()}});
+        history.push(`/EditarTreinador/${id}`);
     }
 
     function ExcluirPokemon(id){
-        api.delete(`treinadores/${id}`)
+        api.delete(`treinadores/${id}`, {headers: {"token": getToken()}})
             .then(result => {
                 toast.success(result.data, {position: "top-right"});
                 getTreinador();

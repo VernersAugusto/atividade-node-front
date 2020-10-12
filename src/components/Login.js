@@ -29,7 +29,7 @@ function Login({history}) {
     return (
         <>
             <ToastContainer />
-            <p>Já é cadastrado?</p>
+            <h2>Já é cadastrado?</h2>
             <form style={{ width: "50%" }} onSubmit={submitForm}>
                 <div className="form-group" >
                     <label htmlFor="email">Email</label>
