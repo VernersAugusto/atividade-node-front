@@ -1,41 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import api from "../api/api";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function EditarPokemon() {
-    const [pokemon, setPokemon] = React.useState({
+function EditarPokemon({history, match}) {
+    const [pokemon, setPokemon] = useState({
         nome: "",
         descricao: "",
         tipo1: "",
         tipo2: "",
     });   
 
+    useEffect(() => {
+        api.get(`Pokemons/${match.params.id}`)
+            .then(result => {                
+                setPokemon(result.data);
+            })
+            .catch(error => console.log(error));
+            return () => {};
+    }, []);
+
     function submitForm(event) {
-        event.preventDefault();
-        api.put("pokemons", pokemon)
-            .then(result => toast.success(result.data, { position: "top-right" }))
+        event.preventDefault();        
+        api.put(`pokemons/${match.params.id}`, pokemon)
+            .then(result => {
+                toast.success(result.data, { position: "top-right" });
+                history.push("/pokemons");
+            })
             .catch(error => toast.error(error.response.data, { position: "top-right" }));
     }
 
-    function pokemonHandler(event) {
+    function pokemonHandler(event) {        
         setPokemon({ ...pokemon, [event.target.name]: event.target.value });
     }
 
     return (
         <>
-            <form className="form" onSubmit={submitForm}>
+            <form className="form" onSubmit={submitForm}>               
                 <div className="form-group">
-                    <label htmlFor="Nome">Nome</label>
+                    <label htmlFor="nome">Nome</label>
                     <input name="nome"
                         value={pokemon.nome}
                         onChange={pokemonHandler}
                         className="form-control"
-                        id="Nome" />
+                        id="nome" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="Nome">Descricao</label>
+                    <label htmlFor="descricao">Descricao</label>
                     <textarea name="descricao"
                         value={pokemon.descricao}
                         onChange={pokemonHandler}

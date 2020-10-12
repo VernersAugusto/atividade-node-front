@@ -15,7 +15,7 @@ function Treinadores() {
             <Link to="NovoTreinador">Novo Treinador +</Link> 
 
             {treinadoresLista && treinadoresLista.map((p) => (
-                <div key={p.id} className="card mt-2">
+                <div key={p._id} className="card mt-2">
                 <div className="card-body">
                     <h5 className="card-title">{p.nome}</h5>
                     <p className="card-text">{p.premio}</p>
