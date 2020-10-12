@@ -15,8 +15,8 @@ function NovoTreinador({history, match}) {
         api.get(`treinadores/${match.params.id}`)
         .then(result => {
             setTreinador(result.data);
-        }).
-        catch(error => console.log(error));
+        })
+        .catch(error => console.log(error));
         return () => {};
     }, []);
 

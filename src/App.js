@@ -9,6 +9,7 @@ import Treinadores from "./components/Treinadores"
 import NovoTreinador from "./components/NovoTreinador"
 import EditarTreinador from "./components/EditarTreinador"
 import Login from "./components/Login";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Cabecalho />
       <div className="container">
         <Route path="/" exact component={Login}></Route>
+        <Route path="/home" exact component={Home}></Route>
         <Route path="/novoUsuario" component={NovoUsuario}></Route>
         <Route path="/Pokemons" component={Pokemons}></Route>
         <Route path="/NovoPokemon" component={NovoPokemon}></Route>
