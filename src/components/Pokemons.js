@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/api";
-import EditarPokemon from "./EditarPokemon";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Pokemons() {
     const [pokemonsLista, setPokemonLista] = useState(undefined);
 
-    useEffect(() => {
+    function getPokemon(){
         api.get("pokemons").then(result => setPokemonLista(result.data));
+    }
+
+    useEffect(() => {
+        getPokemon();
         return () => { };
     }, []);
 
+
     function ExcluirPokemon(id){
-        api.delete(`pokemons/${id}`);
-        
+        api.delete(`pokemons/${id}`)
+            .then(result => {
+                toast.success(result.data, { position: "top-right" });
+                getPokemon();
+            })
+            .catch(error => toast.error(error.response.data, { position: "top-right" }));
     }
 
     return (
@@ -24,7 +34,9 @@ function Pokemons() {
                 <div key={p._id} className="card mt-2">
                     <div className="card-header d-flex justify-content-end">
                         <button type="button" className="btn btn-primary btn-sm">Alterar</button>
-                        <button type="button" className="btn btn-danger btn-sm ml-2" onClick={() => ExcluirPokemon(p._id)}>Excluir</button>
+                        <button type="button" 
+                        className="btn btn-danger btn-sm ml-2" 
+                        onClick={() => ExcluirPokemon(p._id)}>Excluir</button>
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">{p.nome}</h5>
@@ -36,6 +48,7 @@ function Pokemons() {
                     </ul>
                 </div>
             ))}
+            <ToastContainer />
         </>
     )
 }
