@@ -1,9 +1,11 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function Home() {
     return (
         <>
-        bem vindo!
+        <h1>bem vindo!</h1>
+        <Link to="/EditarUsuario">Editar Usuário</Link>
         </>
     )
 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../api/api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setToken } from "../api/auth";
+import { setToken, setUsuarioId } from "../api/auth";
 
 function Login({history}) {
     const [login, setLogin] = useState({
@@ -16,7 +16,8 @@ function Login({history}) {
 
         api.post(`usuarios/login`, login)
         .then(result => {                     
-            setToken(result.data.token);
+            setToken(result.data.token);            
+            setUsuarioId(result.data.usuario._id);            
             history.push("/home");           
         })
         .catch(error => toast.error(error.response.data, { position: "top-right" }));
